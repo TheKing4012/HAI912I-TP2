@@ -7,9 +7,10 @@ class WeatherInitial extends WeatherState {}
 class WeatherLoading extends WeatherState {}
 
 class WeatherLoaded extends WeatherState {
-  final Weather weather;
+  final Weather currentWeather;
+  final List<WeatherForecast> forecast;
 
-  WeatherLoaded(this.weather);
+  WeatherLoaded(this.currentWeather, this.forecast);
 }
 
 class WeatherError extends WeatherState {

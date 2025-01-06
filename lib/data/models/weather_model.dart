@@ -13,6 +13,11 @@ class Weather {
     required this.icon,
   });
 
+  @override
+  String toString() {
+  return 'Ville: $cityName, Température: $temperature°C, Humidité: $humidity%, Icône: $icon';
+  }
+
   factory Weather.fromJson(Map<String, dynamic> json) {
     return Weather(
       cityName: json['name'],
@@ -24,14 +29,28 @@ class Weather {
   }
 }
 
-class Forecast {
-  final DateTime date;
+class WeatherForecast {
+  final String date;
   final double temperature;
-  final String weatherIcon;
+  final int humidity;
+  final String icon;
+  final String description;
 
-  Forecast({
+  WeatherForecast({
     required this.date,
     required this.temperature,
-    required this.weatherIcon,
+    required this.humidity,
+    required this.icon,
+    required this.description,
   });
+
+  factory WeatherForecast.fromJson(Map<String, dynamic> json) {
+    return WeatherForecast(
+      date: json['dt_txt'],
+      temperature: json['main']['temp'].toDouble(),
+      humidity: json['main']['humidity'],
+      icon: json['weather'][0]['icon'],
+      description: json['weather'][0]['description'],
+    );
+  }
 }

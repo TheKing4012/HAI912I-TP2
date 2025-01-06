@@ -11,14 +11,14 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       print("Événement reçu pour la ville : ${event.cityName}"); // Debug
       emit(WeatherLoading());
       try {
-        final weather = await weatherRepository.fetchWeather(event.cityName);
-        print("Données météo reçues : $weather"); // Debug
-        emit(WeatherLoaded(weather));
+        final (currentWeather, forecast) = await weatherRepository.fetchWeatherAndForecast(event.cityName);
+        print("Données météo reçues : $currentWeather"); // Debug
+        emit(WeatherLoaded(currentWeather, forecast));
       } catch (e) {
         print("Erreur : $e"); // Debug
         emit(WeatherError('Impossible de récupérer les données météo'));
       }
     });
-
   }
 }
+
